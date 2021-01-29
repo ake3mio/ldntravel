@@ -45,13 +45,25 @@ class TubeTravelCalculationServiceTest {
     }
 
     @Test
-    void theFeeOfStationsFromAdjacentZones() {
+    void theFeeOfStationsFromAdjacentZonesAlsoInSameZone() {
+        var zones = stationService.getZones();
+        var zone1 = zones.get(0);
+        var zone2 = zone1.getAdjZone();
+        var expectedFee = zone1.getFees().get(TransportMethodType.TUBE).getAmount();
+        var to = zone1.getStations().get(0);
+        var from = zone2.getStations().get(0);
+        var fee = travelCalculationService.calculateTrip(from, to);
+        assertEquals(fee, expectedFee);
+    }
+
+    @Test
+    void theFeeOfStationsFromAdjacentOutsideZones() {
         var zones = stationService.getZones();
         var zone1 = zones.get(0);
         var zone2 = zone1.getAdjZone();
         var expectedFee = zone1.getFees().get(TransportMethodType.TUBE).getAmount() + zone1.getWeight();
-        var to = zone1.getStations().get(1);
-        var from = zone2.getStations().get(0);
+        var to = zone1.getStations().get(0);
+        var from = zone2.getStations().get(1);
         var fee = travelCalculationService.calculateTrip(from, to);
         assertEquals(fee, expectedFee);
     }
@@ -64,7 +76,7 @@ class TubeTravelCalculationServiceTest {
         var zone3 = zone2.getAdjZone();
 
         var expectedFee = travelCalculationService.getMaxFee();
-        var to = zone1.getStations().get(1);
+        var to = zone1.getStations().get(0);
         var from = zone3.getStations().get(0);
         var fee = travelCalculationService.calculateTrip(from, to);
         assertEquals(fee, expectedFee);
