@@ -35,6 +35,14 @@ public class TubeTravelCalculationService implements TravelCalculationService {
             throw new InvalidJourneyException();
         }
 
+        if (from.equals(to)) {
+            return zonesFrom
+                    .stream()
+                    .map(this::getZoneFee)
+                    .reduce(Math::min)
+                    .orElseThrow(InvalidJourneyException::new);
+        }
+
         if (zonesTo.size() > zonesFrom.size()) {
             var temp = zonesFrom;
             zonesFrom = zonesTo;

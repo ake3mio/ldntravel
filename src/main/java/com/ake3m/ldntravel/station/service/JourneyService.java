@@ -12,6 +12,10 @@ import com.ake3m.ldntravel.station.types.TransportMethodType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public abstract class JourneyService<T extends Card> {
@@ -22,8 +26,10 @@ public abstract class JourneyService<T extends Card> {
     protected abstract Journey startJourney(T card, Station from);
 
     public OysterJourney endJourney(OysterCard card, Station to) {
-        return oysterJourneyRepository
-                .findByCardId(card.getId())
+        List<OysterJourney> journeys = oysterJourneyRepository
+                .findAllByCardIdOrderByIdDesc(card.getId(), PageRequest.of(0, 1));
+        var oysterJourney = journeys.size() > 0 ? journeys.get(0) : null;
+        return Optional.ofNullable(oysterJourney)
                 .map(journey -> {
                     journey.setTo(to);
                     beforePersist(journey);

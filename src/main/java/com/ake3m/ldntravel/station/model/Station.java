@@ -16,4 +16,8 @@ public class Station {
 
     @Column(unique = true)
     private String name;
+
+    public boolean equals(Station other) {
+        return other.getId() == id;
+    }
 }
