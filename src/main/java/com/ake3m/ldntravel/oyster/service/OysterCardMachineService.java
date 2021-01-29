@@ -6,8 +6,6 @@ import com.ake3m.ldntravel.oyster.repository.OysterCardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service(value = "oysterCardMachineService")
 public class OysterCardMachineService implements CardMachineService<OysterCard> {

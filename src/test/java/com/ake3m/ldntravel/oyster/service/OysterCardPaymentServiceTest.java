@@ -21,7 +21,7 @@ class OysterCardPaymentServiceTest {
         var amount = 30.00;
         var card = cardMachineService.createCard();
         card = cardMachineService.topUp(card, amount);
-        cardPaymentService.charge(card, 10.00);
+        card = cardPaymentService.charge(card, 10.00);
         assertEquals(card.getBalance(), 20.00);
     }
 
@@ -29,7 +29,7 @@ class OysterCardPaymentServiceTest {
     void refundsTheValidAmount() {
         var amount = 30.00;
         var card = cardMachineService.createCard();
-        cardPaymentService.refund(card, amount);
+        card = cardPaymentService.refund(card, amount);
         assertEquals(card.getBalance(), amount);
     }
 
