@@ -18,7 +18,6 @@ class OysterCardMachineServiceTest {
     @Test
     void createCard() {
         var card = cardMachineService.createCard();
-
         assertNotNull(card);
     }
 
@@ -45,7 +44,11 @@ class OysterCardMachineServiceTest {
     void topupEqualsBalance() {
         var amount = 30.00;
         var card = cardMachineService.createCard();
-        cardMachineService.topUp(card, amount);
+
+        card = cardMachineService.topUp(card, amount);
         assertEquals(cardMachineService.checkBalance(card), amount);
+
+        card = cardMachineService.topUp(card, amount);
+        assertEquals(cardMachineService.checkBalance(card), amount * 2);
     }
 }
