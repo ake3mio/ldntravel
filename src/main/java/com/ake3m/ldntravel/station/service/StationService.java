@@ -26,6 +26,6 @@ public class StationService {
     }
 
     public Optional<Station> findStation(String name) {
-        return stationRepository.findByName(name);
+        return stationRepository.findByNameLike(name);
     }
 }

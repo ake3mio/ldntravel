@@ -9,6 +9,6 @@ import java.util.Optional;
 
 
 public interface StationRepository extends CrudRepository<Station, Integer> {
-    Optional<Station> findByName(String name);
+    Optional<Station> findByNameLike(String name);
     List<Station> findAll();
 }
