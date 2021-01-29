@@ -30,6 +30,7 @@ class OysterCardMachineServiceTest {
             cardMachineService.topUp(card, amount);
         });
     }
+
     @Test
     void canNotCheckBalanceOfInvalidCard() {
         var amount = 30.00;
