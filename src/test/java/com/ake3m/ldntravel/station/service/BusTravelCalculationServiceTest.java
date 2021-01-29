@@ -14,9 +14,26 @@ class BusTravelCalculationServiceTest {
     private BusTravelCalculationService travelCalculationService;
 
     @Test
-    void getDepositIsTheSameAsFare() {
+    void depositIsTheSameAsFare() {
         assertEquals(
+                travelCalculationService.getMaxFee(),
                 travelCalculationService.getDepositFee(),
+                travelCalculationService.calculateTrip(new Station(), new Station())
+        );
+    }
+
+    @Test
+    void depositIsTheSameAsMaxFee() {
+        assertEquals(
+                travelCalculationService.getMaxFee(),
+                travelCalculationService.getDepositFee()
+        );
+    }
+
+    @Test
+    void tripFeeIsTheSameAsMaxFee() {
+        assertEquals(
+                travelCalculationService.getMaxFee(),
                 travelCalculationService.calculateTrip(new Station(), new Station())
         );
     }
