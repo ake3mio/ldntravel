@@ -3,7 +3,7 @@ package com.ake3m.ldntravel.station.service;
 import com.ake3m.ldntravel.oyster.model.OysterCard;
 import com.ake3m.ldntravel.oyster.service.CardMachineService;
 import com.ake3m.ldntravel.oyster.service.CardPaymentService;
-import com.ake3m.ldntravel.station.exception.InsufficientFundsException;
+import com.ake3m.ldntravel.oyster.exception.InsufficientFundsException;
 import com.ake3m.ldntravel.station.model.Station;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ class BusJourneyServiceTest {
         busJourneyService.startJourney(card, station);
         card = cardPaymentService.getUpdatedCard(card);
 
-        assertEquals(card.getBalance(), amount - travelCalculationService.getMaxFee());
+        assertEquals(card.getBalance(), amount - travelCalculationService.getDepositFee());
     }
 
     @Test

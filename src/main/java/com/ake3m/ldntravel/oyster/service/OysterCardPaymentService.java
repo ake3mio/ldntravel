@@ -1,5 +1,6 @@
 package com.ake3m.ldntravel.oyster.service;
 
+import com.ake3m.ldntravel.oyster.exception.InsufficientFundsException;
 import com.ake3m.ldntravel.oyster.exception.InvalidCardException;
 import com.ake3m.ldntravel.oyster.model.OysterCard;
 import com.ake3m.ldntravel.oyster.repository.OysterCardRepository;
@@ -33,7 +34,11 @@ public class OysterCardPaymentService implements CardPaymentService<OysterCard> 
         return oysterRepository
                 .findById(card.getId())
                 .map(oysterCard -> {
-                    oysterCard.setBalance(oysterCard.getBalance() + amount);
+                    double balance = oysterCard.getBalance() + amount;
+                    if (balance < 0) {
+                        throw new InsufficientFundsException();
+                    }
+                    oysterCard.setBalance(balance);
                     return oysterRepository.save(oysterCard);
                 })
                 .orElseThrow(InvalidCardException::new);

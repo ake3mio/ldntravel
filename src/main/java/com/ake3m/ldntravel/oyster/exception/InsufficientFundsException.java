@@ -1,4 +1,4 @@
-package com.ake3m.ldntravel.station.exception;
+package com.ake3m.ldntravel.oyster.exception;
 
 public class InsufficientFundsException extends RuntimeException{
     public InsufficientFundsException() {
